@@ -7,3 +7,5 @@ data/
 .ipynb_checkpoints/
 outputs/
 data/
+*.env
+.ipynb_checkpoints/
