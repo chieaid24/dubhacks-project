@@ -189,19 +189,9 @@ export default function PowerPointSection({
         renderPdfViewer()
       ) : lectureData ? (
         <div className="p-6 h-full overflow-y-auto">
-          <h2 className="text-xl font-semibold mb-4 text-text-white">{lectureData.title}</h2>
+          <h2 className="text-xl font-semibold mb-4 text-text-white">{lectureData.filename}</h2>
           <div className="space-y-4">
-            {lectureData.slides.map((slide, index) => (
-              <div key={index} className="border border-border-dark-light rounded-lg p-4 bg-bg-dark-secondary">
-                <h3 className="font-medium text-lg mb-2 text-text-white">{slide.title}</h3>
-                <p className="text-text-light-gray mb-3">{slide.content}</p>
-                {slide.audioUrl && (
-                  <audio controls className="w-full">
-                    <source src={slide.audioUrl} type="audio/mpeg" />
-                  </audio>
-                )}
-              </div>
-            ))}
+            Hello
           </div>
         </div>
       ) : (

@@ -1,12 +1,10 @@
-export interface Slide {
-  title: string;
-  content: string;
-  notes: string;
-  audioUrl?: string;
-}
-
 export interface LectureData {
-  slides: Slide[];
-  title: string;
-  addNotes: [string, string | string[]][]; // Array of tuples: (header, body) where body can be string or array of strings
+  filename: string;
+  slide_count: number;
+  lecture_pages: {
+    page_number: number;
+    lecture_text: string;
+  }[];
+  audio_urls: string[];
+  add_notes: [string, string | string[]][]; // tuple array
 }

@@ -13,28 +13,14 @@ import {
 import type { StoredLectureFile } from "@/lib/localFileStorage";
 
 const buildMockLectureData = (fileName: string): LectureData => ({
-  title: `Lecture from ${fileName}`,
-  slides: [
-    {
-      title: "Placeholder for the Slides",
-      content: "Welcome to the lecture",
-      notes: `This is an introduction slide with key concepts from ${fileName}...`,
-      audioUrl: "/sample-audio.mp3",
-    },
-  ],
-  addNotes: [
-    [
-      "Definition of AI",
-      [
-        `This is an introduction slide with key concepts from ${fileName}...`,
-        "Hello!!",
-      ],
-    ],
-    [
-      "Example of Something",
-      `This is a conclusion slide with key concepts from ${fileName}...`,
-    ],
-  ],
+  filename: fileName,
+  slide_count: 1, // consider making this a number if it always is one
+  lecture_pages: [{
+    page_number: 1,
+    lecture_text: "string",
+  }],
+  audio_urls: [],
+  add_notes: [["title", "body"]], // tuple array
 });
 
 export default function Home() {
@@ -85,7 +71,7 @@ export default function Home() {
 
   return (
     <div className="h-screen flex bg-bg-darkest">
-      
+
       {/* Left Side - Additional Notes */}
       <AdditionalNotesSection lectureData={lectureData} onNewStory={resetLecture} />
 
@@ -98,7 +84,7 @@ export default function Home() {
           onFileUpload={handleFileUpload}
           storedLectureFile={storedLectureFile}
         />
-        
+
         <ChatbotSection lectureData={lectureData} />
       </div>
 

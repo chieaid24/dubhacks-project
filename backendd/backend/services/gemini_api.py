@@ -4,8 +4,7 @@ from google import genai
 from dotenv import load_dotenv
 
 # Load environment variables from .env
-dotenv_path = "/home/sagemaker-user/bedtime-lecturer/.env"
-load_dotenv(dotenv_path)
+load_dotenv()
 
 # Optional: check that the key is loaded
 print("GEMINI_API_KEY =", os.getenv("GEMINI_API_KEY") is not None)

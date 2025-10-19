@@ -32,6 +32,9 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+.env
+backend/.env
+*.env
 
 # vercel
 .vercel
@@ -39,3 +42,23 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+backend/.ipynb_checkpoints/
+backend/services/.ipynb_checkpoints/
+notebooks/.ipynb_checkpoints/
+outputs/.ipynb_checkpoints/
+
+# Python cache
+pycache/
+*.pyc
+
+# Build / output folders
+.next/
+outputs/
+data/
+
+# Node / frontend
+node_modules/
+dist/

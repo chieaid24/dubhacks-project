@@ -22,10 +22,10 @@ export default function AdditionalNotesSection({ lectureData, onNewStory }: Addi
   };
 
   const handleCopyNotes = async () => {
-    if (!lectureData?.addNotes) return;
+    if (!lectureData?.add_notes) return;
 
     // Format the notes as they appear in the UI
-    const formattedNotes = lectureData.addNotes.map(note => {
+    const formattedNotes = lectureData.add_notes.map(note => {
       const header = note[0];
       const body = Array.isArray(note[1]) 
         ? note[1].map(point => `• ${point}`).join('\n')
@@ -144,7 +144,7 @@ export default function AdditionalNotesSection({ lectureData, onNewStory }: Addi
         </div>
         {lectureData ? (
           <div className="space-y-4">
-            {lectureData.addNotes.map((note, index) => (
+            {lectureData.add_notes.map((note, index) => (
               <div key={index} className="">
                 <h4 className="text-xl font-medium text-text-white">{note[0]}</h4>
                 <div className="text-md text-text-light-gray">
