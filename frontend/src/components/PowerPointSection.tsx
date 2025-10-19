@@ -4,7 +4,10 @@ import { useMemo, useState, useEffect } from "react";
 import { LectureData } from "@/types/lecture";
 import UploadModal from "./UploadModal";
 import AudioPlayer from "./AudioPlayer";
+import dynamic from "next/dynamic"
 import type { StoredLectureFile } from "@/lib/localFileStorage";
+import 'react-pdf/dist/Page/AnnotationLayer.css';
+import 'react-pdf/dist/Page/TextLayer.css';
 
 interface PowerPointSectionProps {
   lectureData: LectureData | null;
@@ -15,7 +18,6 @@ interface PowerPointSectionProps {
 }
 
 export default function PowerPointSection({
-  lectureData,
   isUploading,
   showUploadModal,
   onFileUpload,
@@ -23,6 +25,9 @@ export default function PowerPointSection({
 }: PowerPointSectionProps) {
   const [isDragOver, setIsDragOver] = useState(false);
   const [lectureFile, setLectureFile] = useState<StoredLectureFile | null>(null);
+  const [pageNumber, setPageNumber] = useState(1);
+
+  const PDFViewer = dynamic(() => import('../components/PDFViewer'), { ssr: false })
 
   // 🔁 Sync local lectureFile with storedLectureFile whenever it changes
   useEffect(() => {
@@ -62,16 +67,18 @@ export default function PowerPointSection({
     }
   };
 
+    // ✅ Helper to get full backend URL
+  const getAudioUrl = (relativeUrl: string) =>
+    `http://localhost:8000${relativeUrl}`;
+
   return (
     <div className="flex-1 bg-bg-dark border-r border-b border-border-dark-light relative flex flex-col">
       {lectureFile ? (
         <div className="p-6 h-full overflow-y-auto">
-          <h2 className="text-xl font-semibold mb-4 text-text-white">
-            {lectureFile.backendData.backendData.filename}
-          </h2>
+          <PDFViewer file={lectureFile.dataUrl} pageNumber={pageNumber} setPageNumber={setPageNumber} />
           <div className="space-y-4">
-            {/* ✅ You can now safely use `lectureFile` here */}
-            <p>Hello from {lectureFile.backendData.filename}</p>
+            {pageNumber}
+            <AudioPlayer src={getAudioUrl(lectureFile.dataUrl)} /> 
           </div>
         </div>
       ) : (

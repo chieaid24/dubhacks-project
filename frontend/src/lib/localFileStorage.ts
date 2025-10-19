@@ -34,7 +34,7 @@ const readFileAsDataUrl = (file: File) =>
 
 export const saveFileToLocalStorage = async (
   file: File
-): Promise<StoredLectureFile> => {
+) : Promise<StoredLectureFile> => {
   const dataUrl = await readFileAsDataUrl(file);
 
   let backendResult: any = null;
