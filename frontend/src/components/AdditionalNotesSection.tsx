@@ -3,19 +3,22 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { LectureData } from "@/types/lecture";
+import { clearStoredFile } from "@/lib/localFileStorage";
 
 interface AdditionalNotesSectionProps {
   lectureData: LectureData | null;
+  onNewStory?: () => void;
 }
 
-export default function AdditionalNotesSection({ lectureData }: AdditionalNotesSectionProps) {
+export default function AdditionalNotesSection({ lectureData, onNewStory }: AdditionalNotesSectionProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showCopiedPopup, setShowCopiedPopup] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   const handleNewStory = () => {
-    // For now, refresh the page
-    window.location.reload();
+    clearStoredFile();
+    setIsMenuOpen(false);
+    onNewStory?.();
   };
 
   const handleCopyNotes = async () => {
@@ -110,8 +113,8 @@ export default function AdditionalNotesSection({ lectureData }: AdditionalNotesS
           {lectureData && (
             <button
               onClick={handleCopyNotes}
-              className="p-1.5 hover:bg-hover-dark rounded-lg transition-colors"
-              title="Copy notes to clipboard"
+              className="p-1.5 hover:bg-hover-dark duration-150 rounded-lg transition-colors"
+              title="Copy notes"
             >
               <svg className="w-5 h-5 text-text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
@@ -127,13 +130,13 @@ export default function AdditionalNotesSection({ lectureData }: AdditionalNotesS
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.1 }}
-                className="absolute top-8 right-0 bg-primary/80 text-white px-3 py-2 rounded-lg shadow-lg z-50"
+                className="absolute top-10 left-24/40 -translate-x-1/2 bg-primary/80 text-white px-3 py-2 rounded-lg shadow-lg z-50"
               >
                 <div className="flex items-center space-x-2">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <span className="text-sm font-medium">Copied!</span>
+                  <span className="text-xs font-medium">Copied!</span>
                 </div>
               </motion.div>
             )}

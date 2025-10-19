@@ -51,9 +51,9 @@ export default function ChatbotSection({ lectureData }: ChatbotSectionProps) {
       };
 
       recognitionRef.current.onerror = (event: any) => {
-        // Ignore "no-speech" errors as they're expected when user isn't speaking
-        if (event.error === 'no-speech') {
-          console.log('No speech detected, continuing to listen...');
+        // Ignore "no-speech" and "aborted" errors as they're expected during normal operation
+        if (event.error === 'no-speech' || event.error === 'aborted') {
+          console.log('Speech recognition:', event.error);
           return;
         }
 
@@ -148,8 +148,8 @@ export default function ChatbotSection({ lectureData }: ChatbotSectionProps) {
 
   return (
     <div className="h-80 bg-bg-dark ">
-      <div className="relative h-full flex flex-col py-2 px-6">
-        <div className="p-2 pt-0">
+      <div className="relative h-full flex flex-col py-4 px-6">
+        <div className="pb-2">
           <h3 className="font-bold text-2xl text-text-white">[Chat with AI Lecturer]</h3>
         </div>
 
@@ -193,7 +193,7 @@ export default function ChatbotSection({ lectureData }: ChatbotSectionProps) {
             <motion.button
               onClick={toggleListening}
               disabled={!lectureData}
-              className={`p-2 rounded-lg flex-shrink-0 shadow-2xl ${isListening
+              className={`p-2 rounded-full flex-shrink-0 shadow-2xl ${isListening
                   ? 'bg-error text-white'
                   : 'bg-primary text-white'
                 } disabled:bg-bg-dark-secondary disabled:cursor-not-allowed`}
@@ -269,9 +269,9 @@ export default function ChatbotSection({ lectureData }: ChatbotSectionProps) {
                     whileTap={{ scale: 0.95 }}
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 152 152" fill="none">
-                      <g clip-path="url(#clip0_21_26)">
+                      <g clipPath="url(#clip0_21_26)">
                         <circle cx="78" cy="75" r="42" fill="white" />
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0.166672 76C0.166672 34.1184 34.1184 0.166687 76 0.166687C117.881 0.166687 151.833 34.1184 151.833 76C151.833 117.881 117.881 151.833 76 151.833C34.1184 151.833 0.166672 117.881 0.166672 76ZM68.4167 106.333C68.4167 110.522 71.8117 113.917 76 113.917C80.1883 113.917 83.5833 110.522 83.5833 106.333V63.9744L93.3878 73.7789C96.3491 76.7401 101.151 76.7401 104.112 73.7789C107.073 70.8176 107.073 66.0158 104.112 63.0545L82.0219 40.9645C81.9082 40.8502 81.7914 40.7399 81.6723 40.6334C80.2831 39.069 78.2568 38.0834 76 38.0834C73.7432 38.0834 71.7169 39.069 70.3277 40.6334C70.2086 40.7398 70.0918 40.8502 69.9781 40.9645L47.8877 63.0545C44.9263 66.0158 44.9263 70.8176 47.8877 73.7789C50.8493 76.7401 55.6507 76.7401 58.6123 73.7789L68.4167 63.9744V106.333Z" fill="#704FB2" />
+                        <path fillRule="evenodd" clipRule="evenodd" d="M0.166672 76C0.166672 34.1184 34.1184 0.166687 76 0.166687C117.881 0.166687 151.833 34.1184 151.833 76C151.833 117.881 117.881 151.833 76 151.833C34.1184 151.833 0.166672 117.881 0.166672 76ZM68.4167 106.333C68.4167 110.522 71.8117 113.917 76 113.917C80.1883 113.917 83.5833 110.522 83.5833 106.333V63.9744L93.3878 73.7789C96.3491 76.7401 101.151 76.7401 104.112 73.7789C107.073 70.8176 107.073 66.0158 104.112 63.0545L82.0219 40.9645C81.9082 40.8502 81.7914 40.7399 81.6723 40.6334C80.2831 39.069 78.2568 38.0834 76 38.0834C73.7432 38.0834 71.7169 39.069 70.3277 40.6334C70.2086 40.7398 70.0918 40.8502 69.9781 40.9645L47.8877 63.0545C44.9263 66.0158 44.9263 70.8176 47.8877 73.7789C50.8493 76.7401 55.6507 76.7401 58.6123 73.7789L68.4167 63.9744V106.333Z" fill="#704FB2" />
                       </g>
                       <defs>
                         <clipPath id="clip0_21_26">
@@ -284,14 +284,6 @@ export default function ChatbotSection({ lectureData }: ChatbotSectionProps) {
               </AnimatePresence>
             </motion.div>
           </div>
-
-          {/* Listening indicator */}
-          {isListening && (
-            <div className="mt-2 flex items-center justify-center space-x-2 text-error">
-              <div className="w-2 h-2 bg-error rounded-full animate-pulse"></div>
-              <span className="text-xs font-medium">Listening...</span>
-            </div>
-          )}
         </div>
       </div>
     </div>
