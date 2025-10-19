@@ -1,0 +1,14 @@
+[
+  {
+    "page_number": 1,
+    "content": "CSE333, Autumn 2025\nL07: System Calls & POSIX I/O\nSystem Calls & POSIX I/O\nCSE 333 Spring 2025\nInstructors:\tNaomi Alterman, Chris Thachuk\n\nTeaching Assistants:"
+  },
+  {
+    "page_number": 2,
+    "content": "CSE333, Autumn 2025\n2\nL07: System Calls & POSIX I/O\nAdministrivia\nEX6 due\nEX7 out on Friday, take a breather\nInvolves material from lecture today and section tomorrow!\nHW1 due at midnight tomorrow\nSubmission time is the timestamp of the git commit tagged `hw1-final`\nLate day tokens will get \u201cautomatically\u201d used if needed, you don\u2019t need to let\nus know"
+  },
+  {
+    "page_number": 3,
+    "content": "CSE333, Autumn 2025\n3\nL07: System Calls & POSIX I/O\nWhat\u2019s an OS?\nSoftware that:\nDirectly interacts with the hardware\nOS is trusted to do so; user-level programs are not\nOS must be ported to new hardware; user-level programs are portable\nManages (allocates, schedules, protects) hardware resources\nDecides which programs can access which files, memory locations, pixels on the screen, etc. and\nwhen\nAbstracts away messy hardware devices\nProvides high-level, convenient, portable abstractions (e.g. files, disk blocks)"
+  }
+]
