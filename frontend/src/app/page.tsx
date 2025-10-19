@@ -47,6 +47,7 @@ export default function Home() {
     }
   }, []);
 
+
   const handleFileUpload = async (file: File) => {
     setIsUploading(true);
 
@@ -70,8 +71,7 @@ export default function Home() {
   };
 
   return (
-    <div className="h-screen flex bg-bg-darkest">
-
+    <div className="h-screen flex bg-bg-darkest text-white">
       {/* Left Side - Additional Notes */}
       <AdditionalNotesSection lectureData={lectureData} onNewStory={resetLecture} />
 

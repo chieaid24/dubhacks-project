@@ -6,7 +6,9 @@ export interface StoredLectureFile {
   size: number;
   lastModified: number;
   dataUrl: string;
+  backendData?: any; // ← NEW: stores backend JSON response
 }
+
 
 const isBrowser = () =>
   typeof window !== "undefined" && typeof window.localStorage !== "undefined";
@@ -35,13 +37,39 @@ export const saveFileToLocalStorage = async (
 ): Promise<StoredLectureFile> => {
   const dataUrl = await readFileAsDataUrl(file);
 
+  let backendResult: any = null;
+
+  // STEP 1: Upload file to backend through Next.js API route
+  try {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const res = await fetch("/api/upload", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!res.ok) {
+      throw new Error(`Backend upload failed: ${res.statusText}`);
+    }
+
+    backendResult = await res.json();
+    console.log("Backend upload result:", backendResult);
+  } catch (err) {
+    console.error("Failed to upload file to backend:", err);
+  }
+
+  // STEP 2: Save file and backend response together in localStorage
   const storedFile: StoredLectureFile = {
     name: file.name,
     type: file.type,
     size: file.size,
     lastModified: file.lastModified,
     dataUrl,
-  };
+    // ✅ Add backend results so we can restore them later
+    backendData: backendResult,
+  } as any; // allow backendData extension
+  
 
   if (isBrowser()) {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(storedFile));
@@ -49,6 +77,7 @@ export const saveFileToLocalStorage = async (
 
   return storedFile;
 };
+
 
 export const getStoredFile = (): StoredLectureFile | null => {
   if (!isBrowser()) return null;
