@@ -3,12 +3,13 @@
 backend/.env
 *.env
 
-# Jupyter notebook checkpoints
+# Jupyter checkpoints
 .ipynb_checkpoints/
 backend/.ipynb_checkpoints/
-outputs/.ipynb_checkpoints/
+backend/services/.ipynb_checkpoints/
 notebooks/.ipynb_checkpoints/
-frontend/.ipynb_checkpoints/
+outputs/.ipynb_checkpoints/
+
 
 # Python cache
 __pycache__/
