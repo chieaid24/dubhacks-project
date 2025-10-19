@@ -1,7 +1,24 @@
+# Environment / secrets
+.env
+backend/.env
+*.env
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+backend/.ipynb_checkpoints/
+outputs/.ipynb_checkpoints/
+notebooks/.ipynb_checkpoints/
+frontend/.ipynb_checkpoints/
+
+# Python cache
 __pycache__/
 *.pyc
-.env
-*.env
-.ipynb_checkpoints/
+
+# Build / output folders
+.next/
 outputs/
 data/
+
+# Node / frontend
+node_modules/
+dist/
